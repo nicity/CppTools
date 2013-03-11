@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.advancedtools.cpp.CppSupportSettings.MySettings">
+  <tabbedpane id="38987" binding="myPanel">
+    <constraints>
+      <xy x="184" y="119" width="395" height="267"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="9bc0a" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <tabbedpane title="Path settings"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="a25f2" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="8cb1f" class="javax.swing.JLabel" binding="pathToVSCText">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&amp;Path to MS Visual C"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="vsinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="c2674" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="pathToVSC">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="vsinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="5334f" class="javax.swing.JLabel" binding="definesText">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="be187"/>
+                  <text value="&amp;Defines"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="defines.tooltip"/>
+                </properties>
+              </component>
+              <component id="be187" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="defines">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="defines.tooltip"/>
+                </properties>
+              </component>
+              <component id="d751d" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="additionalIncludeDirs">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="additional.includedirs.tooltip"/>
+                </properties>
+              </component>
+              <component id="c7fbe" class="javax.swing.JLabel" binding="additionalIncludeDirsText">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="d751d"/>
+                  <text value="&amp;Additional include directories"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="additional.includedirs.tooltip"/>
+                </properties>
+              </component>
+              <component id="2a164" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="gccPath">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gccinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="5a1a1" class="javax.swing.JLabel" binding="gccIncludePathText">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Path to Gcc"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gccinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="41ebb" class="javax.swing.JLabel" binding="mingWToolsDirectoryText">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Path to MingW tools directory"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="mingw.tools.install.tooltip"/>
+                </properties>
+              </component>
+              <component id="fcc3e" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="mingWToolsDirectory">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="mingw.tools.install.tooltip"/>
+                </properties>
+              </component>
+              <component id="2a50d" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Path to Gdb"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gdbinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="7a3b2" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="gdbPath">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gccinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="da34a" class="javax.swing.JLabel" binding="pathToClangText">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Path to Clang"/>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gccinstall.tooltip"/>
+                </properties>
+              </component>
+              <component id="a1e81" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="clangPath">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <toolTipText resource-bundle="com/advancedtools/cpp/CppBundle" key="gccinstall.tooltip"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="3cacc">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <hspacer id="cdb9a">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
+      <grid id="553c2" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <tabbedpane title="Debug"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fb739" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <labelFor value="f8177"/>
+              <text value="Gdb launch command:"/>
+            </properties>
+          </component>
+          <vspacer id="844ff">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="f8177" class="javax.swing.JTextField" binding="gdbLaunchCommand" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="aa412" class="javax.swing.JCheckBox" binding="launchGdbOnServerCrash" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <margin top="0" left="0" bottom="0" right="0"/>
+              <text value="L&amp;aunch gdb on server failure"/>
+            </properties>
+          </component>
+          <component id="ffcde" class="javax.swing.JButton" binding="myForceRestartServersButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Restart all servers"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </tabbedpane>
+</form>

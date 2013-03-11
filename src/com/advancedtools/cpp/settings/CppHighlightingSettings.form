@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.advancedtools.cpp.settings.CppHighlightingSettings.Settings">
+  <grid id="27dc6" binding="projectSettingsPanel" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="400" height="405"/>
+    </constraints>
+    <properties/>
+    <border type="none" title="Warnings to be reported"/>
+    <children>
+      <component id="aaad5" class="javax.swing.JCheckBox" binding="implicitCastToBoolSwitch">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Implicit cast to &amp;bool"/>
+        </properties>
+      </component>
+      <hspacer id="568a6">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="3fd8f" class="javax.swing.JCheckBox" binding="redundantCastSwitch">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Redundant &amp;cast"/>
+        </properties>
+      </component>
+      <component id="34330" class="javax.swing.JCheckBox" binding="nameNeverReferencedSwitch">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="&amp;Name never referenced"/>
+        </properties>
+      </component>
+      <component id="f87c1" class="javax.swing.JCheckBox" binding="nameUsedOnceSwitch">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Name &amp;used once"/>
+        </properties>
+      </component>
+      <component id="bb4c3" class="javax.swing.JCheckBox" binding="redundantQualifierSwitch">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Redundant &amp;qualifier"/>
+        </properties>
+      </component>
+      <component id="e5798" class="javax.swing.JCheckBox" binding="staticMemberThroughInstanceSwitch">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+          <text value="Accessing &amp;static member through instance qualifier"/>
+        </properties>
+      </component>
+      <component id="b3bea" class="javax.swing.JCheckBox" binding="reportUnneededBracesSwitch">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <selected value="false"/>
+          <text value="Re&amp;dundant braces"/>
+        </properties>
+      </component>
+      <vspacer id="5d81b">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="8bc8f" class="javax.swing.JCheckBox" binding="reportDuplicatedDefinitions">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <selected value="true"/>
+          <text value="Du&amp;plicated definitions"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

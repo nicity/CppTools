@@ -1,0 +1,252 @@
+<!-- AdvancedTools, 2007, all rights reserved -->
+<idea-plugin>
+  <name>C/C++</name>
+  <version>0.8 build 5</version>
+  <idea-version since-build="111.200"/>
+  <depends>com.intellij.modules.lang</depends>
+  <depends optional="true" config-file="exended_platform.xml">com.intellij.modules.java</depends>
+  <vendor url="http://bugs.cpptools.com" email="support@adv-tools.com">AdvancedTools</vendor>
+  <description>
+    Provides advanced C / C++ / Makefile editing and compiling / debugging capabilities. Editing capabilities consist of
+    reference navigation (variable / field / macro / macr parameter names), completion, live semantic and error highlighting (sometimes with fixes :),&lt;br&gt;
+    find usages, goto class / symbol / macro def / constant, refactorings (rename, introduce var), override / implements action / navigation,&lt;br&gt;
+    quick navigate info (Control + Mouse hover), generate default/copy constructors and assignment operator, detect unused variable / functions, structure view&lt;br&gt;,
+    surround with cast/if/etc, navigate from java native declaration to cpp implementation and backward, do compile for
+    cpp files and build for makefile/dsp/vcproj files and more.&lt;br&gt;
+    Debugging support consists of GDB integration exposed as idea debugger interface.&lt;br&gt;
+    EAP software, works only for Win32/(MsVc/Gcc + CygWin/MingW), Linux 32bit /Intel/Gcc, MacOSX/Intel/Gcc platforms with
+      IntelliJ Idea 12 Ultimate / Community editions (builds 123.00),
+      WebStorm.&lt;br&gt;
+    &lt;a href="http://www.cpptools.com/IDEA/Readme.html"&gt;Detailed readme&lt;/a&gt; and &lt;a href="http://youradvtools.blogspot.com/"&gt;blog&lt;/a&gt;
+  </description>
+  <change-notes>
+      &lt;b&gt;In 0.8.5:&lt;/b&gt;
+      &lt;ul&gt;
+      &lt;li&gt; Idea 11.1 compatibility fixes.
+      &lt;li&gt; Compile file action supports Clang.
+      &lt;/ul&gt;
+      &lt;b&gt;In 0.8.4:&lt;/b&gt;
+      &lt;ul&gt;
+      &lt;li&gt; Customizable Makefile colors.
+      &lt;li&gt; Added IntelliJ Idea 12 support.
+      &lt;li&gt; Dropped IntelliJ Idea 10 / 10.5 support.
+      &lt;/ul&gt;
+      &lt;b&gt;In 0.8.3:&lt;/b&gt;
+    &lt;ul&gt;
+      &lt;li&gt; Added IntelliJ Idea 10.5 / 11, WebStorm support.
+      &lt;li&gt; Dropped IntelliJ Idea 9 (Diana) support.
+      &lt;/ul&gt;
+    &lt;b&gt;In 0.8.2:&lt;/b&gt;
+    &lt;ul&gt;
+    &lt;li&gt; Dropped Idea 8 (Diana) support.
+    &lt;/ul&gt;
+    &lt;b&gt;In 0.8.1:&lt;/b&gt;
+    &lt;ul&gt;
+    &lt;li&gt; Major feature: initial support for handling Cpp and C files without switching settings.
+    &lt;li&gt; Completion of member names in constructor initializer list.
+    &lt;li&gt; Find usages over string literal will find other occurrences of the same literal.
+    &lt;li&gt; Completion of macros parameters inside macro body.
+    &lt;li&gt; Assorted performance and usability fixes got from dog fooding :).
+    &lt;li&gt; Completion / navigation for targets / value references in makefiles.
+    &lt;li&gt; Recent find usages action works in usage view for c++ symbols.
+    &lt;li&gt; Option to disable multiple definition checks (C++ Project Settings|Settings).
+    &lt;li&gt; No absent definition error produced for declaration of static integral constant inside class.
+    &lt;li&gt; Leading // file level header comments are folded.
+    &lt;li&gt; Fixed bug with broken "Navigate to constant / macro".
+    &lt;li&gt; Added IdeaX support.
+    &lt;li&gt; Dropped Idea 6 (Demetra) and Idea 7 (Selena) support.
+    &lt;/ul&gt;
+  </change-notes>
+  <extensions defaultExtensionNs="com.intellij">
+    <errorHandler implementation="com.advancedtools.cpp.ErrorReporter"/>
+    <fileTypeFactory implementation="com.advancedtools.cpp.CppFileTypeFactory"/>
+    <declarationRangeHandler implementationClass="com.advancedtools.cpp.CppDeclarationRangeHandler"/>
+    <codeInsight.parameterInfo language="C/C++" implementationClass="com.advancedtools.cpp.CppParameterInfo"/>
+    <lang.foldingBuilder language="C/C++" implementationClass="com.advancedtools.cpp.CppFoldingBuilder"/>
+    <lang.namesValidator language="C/C++" implementationClass="com.advancedtools.cpp.CppNamesValidator"/>
+    <lang.braceMatcher language="C/C++" implementationClass="com.advancedtools.cpp.CppBraceMatcher"/>
+    <lang.refactoringSupport language="C/C++" implementationClass="com.advancedtools.cpp.refactoring.CppRefactoringSupportProvider"/>
+    <codeInsight.gotoSuper language="C/C++" implementationClass="com.advancedtools.cpp.facade.GotoSuperActionHandler"/>
+    <codeInsight.overrideMethod language="C/C++" implementationClass="com.advancedtools.cpp.facade.CppOverrideImplementMethodHandler"/>
+    <codeInsight.implementMethod language="C/C++" implementationClass="com.advancedtools.cpp.facade.CppOverrideImplementMethodHandler"/>
+    <refactoring.inlineHandler language="C/C++" implementationClass="com.advancedtools.cpp.refactoring.CppInlineHandler"/>
+    <completion.contributor language="C/C++" implementationClass="com.advancedtools.cpp.completion.CppCompletionContributor"/> <!--TODO: adv-->
+    <lang.parserDefinition language="C/C++" implementationClass="com.advancedtools.cpp.CppParserDefinition"/>
+    <lang.commenter language="C/C++" implementationClass="com.advancedtools.cpp.CppCommenter"/>
+    <lang.findUsagesProvider language="C/C++" implementationClass="com.advancedtools.cpp.CppFindUsagesProvider"/>
+    <lang.psiStructureViewFactory language="C/C++" implementationClass="com.advancedtools.cpp.facade.LanguageAwareStructureViewFactory"/>
+    <lang.documentationProvider language="C/C++" implementationClass="com.advancedtools.cpp.facade.CppDocumentationProvider"/>
+    <lang.surroundDescriptor language="C/C++" implementationClass="com.advancedtools.cpp.CppSurroundDescriptor"/>
+    <extendWordSelectionHandler implementation="com.advancedtools.cpp.CppSelectioner"/>
+    <lang.syntaxHighlighterFactory key="C/C++" implementationClass="com.advancedtools.cpp.facade.LanguageAwareSyntaxHighlighterFactory"/>
+    <gotoTargetRendererProvider implementation="com.advancedtools.cpp.facade.CppGotoTargetRendererProvider" />
+    <iconProvider implementation="com.advancedtools.cpp.facade.CppIconProvider"/>
+    <configurationType implementation="com.advancedtools.cpp.run.CppRunConfigurationType"/>
+    <configurationType implementation="com.advancedtools.cpp.debugger.remote.CppRemoteDebugConfigurationType"/>
+    <xdebugger.breakpointType implementation="com.advancedtools.cpp.debugger.CppBreakpointType"/>
+    <completion.confidence language="C/C++" implementationClass="com.advancedtools.cpp.completion.CppCompletionConfidence" id="css" order="last"/>
+    <gotoFileContributor implementation="com.advancedtools.cpp.navigation.CppFileContributor"/>
+    <gotoClassContributor implementation="com.advancedtools.cpp.navigation.CppTypeContributor"/>
+    <gotoSymbolContributor implementation="com.advancedtools.cpp.navigation.CppSymbolContributor"/>
+    <definitionsSearch implementation="com.advancedtools.cpp.CppDefinitionSearcher"/>
+    <quoteHandler fileType="C/C++" className="com.advancedtools.cpp.CppQuoteHandler"/>
+    <colorSettingsPage implementation="com.advancedtools.cpp.CppColorsAndFontsPage"/>
+
+    <renameHandler implementation="com.advancedtools.cpp.CppRenameHandler"/>
+    <referencesSearch implementation="com.advancedtools.cpp.CppReferencesSearcher"/>
+    <programRunner implementation="com.advancedtools.cpp.debugger.CppDebugRunner"/>
+    <programRunner implementation="com.advancedtools.cpp.debugger.remote.CppRemoteDebugRunner"/>
+    <programRunner implementation="com.advancedtools.cpp.run.CppRunner"/>
+    <highlightVisitor implementation="com.advancedtools.cpp.hilighting.CppErrorHighlightingHandler"/>
+
+    <lang.parserDefinition language="Makefile" implementationClass="com.advancedtools.cpp.makefile.MakefileParserDefinition"/>
+    <lang.commenter language="Makefile" implementationClass="com.advancedtools.cpp.makefile.MakefileCommenter"/>
+    <lang.findUsagesProvider language="Makefile" implementationClass="com.advancedtools.cpp.makefile.MakefileFindUsagesProvider"/>
+    <lang.psiStructureViewFactory language="Makefile" implementationClass="com.advancedtools.cpp.facade.LanguageAwareStructureViewFactory"/>
+    <lang.syntaxHighlighterFactory key="Makefile" implementationClass="com.advancedtools.cpp.facade.LanguageAwareSyntaxHighlighterFactory" />
+
+    <colorSettingsPage implementation="com.advancedtools.cpp.makefile.MakefileColorsAndFontsPage"/>
+  </extensions>
+  <application-components>
+    <component>
+      <implementation-class>com.advancedtools.cpp.CppSupportSettings</implementation-class>
+    </component>
+    <component>
+      <implementation-class>com.advancedtools.cpp.inspections.CppInspectionsHighlightingHandler</implementation-class>
+    </component>
+  </application-components>
+  <project-components>
+    <component>
+      <implementation-class>com.advancedtools.cpp.CppSupportLoader</implementation-class>
+    </component>
+    <component>
+      <implementation-class>com.advancedtools.cpp.communicator.Communicator</implementation-class>
+      <interface-class>com.advancedtools.cpp.communicator.Communicator</interface-class>
+    </component>
+    <component>
+      <implementation-class>com.advancedtools.cpp.hilighting.CppSimpleEditorHighlightingPassFactory</implementation-class>
+    </component>
+    <component>
+      <implementation-class>com.advancedtools.cpp.hilighting.CppErrorHighlightingHandler</implementation-class>
+    </component>
+    <component>
+      <implementation-class>com.advancedtools.cpp.hilighting.CppOverridenHighlightingPassFactory</implementation-class>
+    </component>
+  </project-components>
+
+  <module-components>
+    <component>
+      <implementation-class>com.advancedtools.cpp.sdk.CppModuleConfigurationEditorProvider</implementation-class>
+    </component>
+  </module-components>
+
+  <actions>
+    <action class="com.advancedtools.cpp.actions.ShowPreprocessedTextAction" text="Show _Preprocessed Text"
+            id="CppSupport.ShowPreprocessedText">
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+
+    <action class="com.advancedtools.cpp.actions.AboutAction" text="About C/C++ plugin..."
+            id="CppSupport.AboutAction">
+      <add-to-group group-id="HelpMenu" anchor="before" relative-to-action="About"/>
+    </action>
+
+    <action class="com.advancedtools.cpp.actions.BuildCppAction" text="Build Something Action"
+            id="CppSupport.BuildSomeThing">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="ScopeViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+
+    <action class="com.advancedtools.cpp.actions.CompileCppAction" text="Compile Something Action"
+            id="CppSupport.CompileSomeThing">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="ScopeViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+
+    <action class="com.advancedtools.cpp.actions.IndentSelectionAction" text="Indent selection"
+            id="CppSupport.IndentSelection"/>
+    <action class="com.advancedtools.cpp.actions.GotoSupersAction" text="Goto Supers (Class, Method)"
+            id="CppSupport.GotoSupers"/>
+    <action class="com.advancedtools.cpp.actions.GotoInheritorsAction" text="Goto Inheritors (Classes, Methods)"
+            id="CppSupport.GotoInheritors"/>
+    <group id="CppSupport.MyGenerateGroup" description="Generate" text="Generate" popup="true"/>
+    <action id="CppSupport.GenerateContructorAction" class="com.advancedtools.cpp.actions.generate.GenerateContructorAction"
+            text="Generate Constructor" description="Generate Contructor With Default Initializations">
+      <add-to-group anchor="last" group-id="GenerateGroup"/>
+      <add-to-group anchor="last" group-id="CppSupport.MyGenerateGroup"/>
+    </action>
+    <action id="CppSupport.GenerateContructorWithParametersAction" class="com.advancedtools.cpp.actions.generate.GenerateContructorWithParametersAction"
+            text="Generate Constructor With Parameters" description="Generate Contructor With Parameters">
+      <add-to-group anchor="last" group-id="GenerateGroup"/>
+      <add-to-group anchor="last" group-id="CppSupport.MyGenerateGroup"/>
+    </action>
+    <action id="CppSupport.GenerateAssignmentOperatorAction"
+            class="com.advancedtools.cpp.actions.generate.GenerateAssignmentOperatorAction" text="Generate Assignment Operator"
+            description="Generate Default Assignment Operator">
+      <add-to-group anchor="last" group-id="GenerateGroup"/>
+      <add-to-group anchor="last" group-id="CppSupport.MyGenerateGroup"/>
+            </action>
+    <action id="CppSupport.GenerateCopyContructorAction"
+            class="com.advancedtools.cpp.actions.generate.GenerateCopyContructorAction" text="Generate Copy Constructor"
+            description="Generate Copy Contructor With Default Initializations">
+      <add-to-group anchor="last" group-id="GenerateGroup"/>
+      <add-to-group anchor="last" group-id="CppSupport.MyGenerateGroup"/>
+            </action>
+
+    <action id="AddOrRemoveCppFileFromAnalysisScopeAction" class="com.advancedtools.cpp.actions.AddOrRemoveCppFileFromAnalysisScopeAction"
+            text="Add/Remove Cpp File From Analysis Scope">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="ScopeViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+    
+    <action id="com.advancedtools.cpp.actions.GotoConstAction" class="com.advancedtools.cpp.actions.GotoConstAction"
+            text="Cpp Co_nstant...">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt shift N"/>
+      <add-to-group anchor="after" relative-to-action="GotoSymbol" group-id="GoToMenu"/>
+    </action>
+    <action id="com.advancedtools.cpp.actions.GotoMacroAction" class="com.advancedtools.cpp.actions.GotoMacroAction"
+            text="Cpp _Macro Definition...">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt shift M"/>
+      <add-to-group anchor="after" relative-to-action="GotoSymbol" group-id="GoToMenu"/>
+    </action>
+
+    <action id="com.advancedtools.cpp.actions.SendSomeTextToServerAction"
+                class="com.advancedtools.cpp.actions.SendSomeTextToServerAction" text="Send Command to C++ Analyzer"/>
+
+    <action id="com.advancedtools.cpp.actions.ShowAllProblemsInProjectAction"
+            class="com.advancedtools.cpp.actions.ShowAllProblemsInProjectAction" text="Show All Problems In Project">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <add-to-group group-id="ScopeViewPopupMenu" anchor="last"/>
+            </action>
+
+    <action id="com.advancedtools.cpp.actions.refactoring.MoveMethodDefinitionToDeclarationAction"
+            class="com.advancedtools.cpp.actions.refactoring.MoveMethodDefinitionToDeclarationAction" text="Move method definition to its declaration">
+      <add-to-group group-id="RefactoringMenu" anchor="last"/>
+    </action>
+
+    <action id="com.advancedtools.cpp.actions.generate.GenerateCaseBranchesFromEnumAction"
+            class="com.advancedtools.cpp.actions.generate.GenerateCaseBranchesFromEnumAction" text="Generates cases in switch for enum type">
+      <add-to-group anchor="last" group-id="GenerateGroup"/>
+      <add-to-group anchor="last" group-id="CppSupport.MyGenerateGroup"/>
+    </action>
+
+    <group id="CppSupport.Actions" description="Cpp Support" text="Cpp Support" popup="true">
+      <reference id="CppSupport.ShowPreprocessedText"/>
+      <reference id="CppSupport.GotoSupers"/>
+      <reference id="CppSupport.GotoInheritors"/>
+      <reference id="CppSupport.BuildSomeThing"/>
+      <reference id="CppSupport.CompileSomeThing"/>
+      <reference id="com.advancedtools.cpp.actions.GotoConstAction"/>
+      <reference id="com.advancedtools.cpp.actions.GotoMacroAction"/>
+      <reference id="com.advancedtools.cpp.actions.ShowAllProblemsInProjectAction"/>
+      <reference id="com.advancedtools.cpp.actions.SendSomeTextToServerAction"/>
+      <reference id="com.advancedtools.cpp.actions.refactoring.MoveMethodDefinitionToDeclarationAction"/>
+      <reference id="CppSupport.IndentSelection"/>
+      <reference id="CppSupport.MyGenerateGroup"/>
+      <add-to-group anchor="last" group-id="ToolsMenu"/>
+    </group>
+  </actions>
+</idea-plugin>

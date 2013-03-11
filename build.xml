@@ -1,0 +1,29 @@
+<!-- AdvancedTools, 2007, all rights reserved -->
+<project name="CppTools plugin deploy" default="copy_files">
+  <property name="idea.sandbox.home.path" value="${IDEA_SANDBOX_HOME_PATH}"/>
+  <property name="project.path" value="${basedir}" />
+
+  <target name="copy_files">
+    <mkdir dir="${idea.sandbox.home.path}/plugins/CppTools/lib" />
+
+    <copy todir="${idea.sandbox.home.path}/plugins/CppTools/lib" >
+       <fileset dir="${project.path}/.." includes="lib.tcl,profile.tcl,defs.h,cfserver.exe,cfserver.mac,cfserver.linux,cfserver.*.syms"/>
+    </copy>
+
+    <copy todir="${idea.sandbox.home.path}/plugins/CppTools" >
+       <fileset dir="${project.path}/../DOC" includes="readme.*"/>
+    </copy>
+
+    <mkdir dir="${idea.sandbox.home.path}/plugins/CppTools/META-INF" />
+
+    <copy todir="${idea.sandbox.home.path}/plugins/CppTools/META-INF" >
+       <fileset dir="${project.path}/META-INF" includes="*.xml"/>
+    </copy>
+  </target>
+
+  <target name="release" depends="copy_files">
+      <delete file="${idea.sandbox.home.path}/plugins/CppTools/lib/CppTools.zip" quiet="true"/>
+      <jar jarfile="${idea.sandbox.home.path}/plugins/CppTools/lib/CppTools.zip" basedir="${project.path}/classes" excludes="tests/**"/>
+    <zip basedir="${idea.sandbox.home.path}/plugins" includes="CppTools/**/*.*,CppTools/**/*" excludes="CppTools/classes/**,CppTools/logs/**" destfile="CppTools.zip"/>
+  </target>
+</project>
