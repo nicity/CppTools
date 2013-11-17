@@ -239,20 +239,13 @@ public class HighlightCommand extends BlockingCommand {
         final HighlightInfoType highlightInfoType = type == MessageType.Info ? HighlightInfoType.INFORMATION :
           type == MessageType.Warning ? HighlightInfoType.WARNING : HighlightInfoType.ERROR;
 
-        HighlightInfo highlightInfo = HighlightInfo.createHighlightInfo(
-          highlightInfoType,
-          range,
-          message
-        );
+        HighlightInfo highlightInfo = HighlightInfo.newHighlightInfo(
+          highlightInfoType).range(range).description(message).create();
 
         if (highlightInfo == null) {
-          highlightInfo = HighlightInfo.createHighlightInfo(
-            highlightInfoType,
-            range,
-            message,
-            null,
-            emptyTextAttrs
-          );
+          highlightInfo = HighlightInfo.newHighlightInfo(highlightInfoType).range(range).
+            description(message).textAttributes(emptyTextAttrs).create();
+
         }
 
         highlightHolder.add(highlightInfo);
