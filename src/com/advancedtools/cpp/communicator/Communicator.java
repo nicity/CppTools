@@ -434,6 +434,7 @@ public class Communicator implements ProjectComponent {
           if (!myExecutableState.isServerProcessAlive()) {
             pendingCommand.doExecuteOnCancel();
             if (myExecutableState.isServerProcessStarted()) {
+              commandsToRestart.clear();
               commandsToRestart.add(new RestartCommand("Unexpected server exit"));
             }
             continue;
