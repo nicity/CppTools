@@ -14,7 +14,6 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.LocalFileSystem;
@@ -42,12 +41,10 @@ public class CppCompiler implements Validator {
       }
     });
 
-    EnvironmentFacade facade = EnvironmentFacade.getInstance();
-
     for(Module module: affectedModules) {
       Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
       if (ModuleType.get(module) == CppModuleType.getInstance() ||
-         (sdk != null && facade.isSdkOfType(sdk, CppSdkType.getInstance()))) {
+         (sdk != null && sdk.getSdkType() == CppSdkType.getInstance())) {
         processingItems.add(new MyProcessingItem(module));
 
         if (!doneSave) {
@@ -137,7 +134,7 @@ public class CppCompiler implements Validator {
       if (ModuleType.get(module) == CppModuleType.getInstance()) {
         Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
 
-        if (!facade.isSdkOfType(sdk, CppSdkType.getInstance())) {
+        if (!(sdk.getSdkType() == CppSdkType.getInstance())) {
           Messages.showMessageDialog(module.getProject(), "C/Cpp module type is not configured", "C/C++ compiler problem", Messages.getErrorIcon());
           return false;
         }

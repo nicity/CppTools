@@ -27,40 +27,5 @@ import javax.swing.*;
 import java.nio.charset.Charset;
 
 public class LedaFacade extends EnvironmentFacade {
-    @Override
-  public Icon getVerifiedBreakpointIcon() {
-    return AllIcons.Debugger.Db_verified_breakpoint;
-  }
 
-  @Override
-  public Object addModuleRootListener(Project project, ModuleRootListener moduleRootListener) {
-    MessageBusConnection connection = project.getMessageBus().connect();
-    connection.subscribe(ProjectTopics.PROJECT_ROOTS, moduleRootListener);
-    return connection;
-  }
-
-  @Override
-  public void removeModuleRootListener(Object rootListenerConnectionData, ModuleRootListener rootListener) {
-    ((MessageBusConnection)rootListenerConnectionData).disconnect();
-  }
-
-  @Override
-  public Icon getStackFrameIcon() {
-    return AllIcons.Debugger.StackFrame;
-  }
-
-  @Override
-  public Icon getAntMetaTargetIcon() {
-    return AllIcons.Ant.MetaTarget;
-  }
-
-  @Override
-  public boolean isSdkOfType(Sdk jdk, SdkType sdkType) {
-    return jdk.getSdkType() == sdkType;
-  }
-
-  @Override
-  public Sdk createSdk(String name, SdkType sdkType) {
-    return new ProjectJdkImpl(name, sdkType);
-  }
 }

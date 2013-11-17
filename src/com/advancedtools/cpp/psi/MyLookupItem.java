@@ -1,9 +1,9 @@
 /* AdvancedTools, 2007, all rights reserved */
 package com.advancedtools.cpp.psi;
 
-import com.advancedtools.cpp.facade.EnvironmentFacade;
 import com.intellij.codeInsight.lookup.LookupValueWithUIHint;
 import com.intellij.codeInsight.lookup.LookupValueWithPriority;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.Iconable;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.util.text.StringTokenizer;
@@ -20,7 +20,7 @@ import java.awt.*;
 public class MyLookupItem implements LookupValueWithUIHint, Iconable, LookupValueWithPriority {
   String type, name, signature;
   Icon icon;
-  private static final Icon macroIcon = EnvironmentFacade.getInstance().getAntMetaTargetIcon();
+  private static final Icon macroIcon = AllIcons.Ant.MetaTarget;
 
   public MyLookupItem(String s) {
     try {

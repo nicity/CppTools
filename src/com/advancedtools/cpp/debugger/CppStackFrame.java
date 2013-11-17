@@ -2,7 +2,7 @@ package com.advancedtools.cpp.debugger;
 
 import com.advancedtools.cpp.debugger.commands.CppDebuggerContext;
 import com.advancedtools.cpp.debugger.commands.DebuggerCommand;
-import com.advancedtools.cpp.facade.EnvironmentFacade;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.project.Project;
@@ -65,7 +65,7 @@ public class CppStackFrame extends XStackFrame {
     else {
       component.append("<file name is not available>", SimpleTextAttributes.REGULAR_ATTRIBUTES);
     }
-    component.setIcon(EnvironmentFacade.getInstance().getStackFrameIcon());
+    component.setIcon(AllIcons.Debugger.StackFrame);
   }
 
   @Override

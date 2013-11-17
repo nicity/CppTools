@@ -5,7 +5,7 @@
       <customJdkName value="IDEA" />
       <maximumStackSize value="32" />
       <properties>
-        <property name="IDEA_SANDBOX_HOME_PATH" value="$SANDBOX_HOME$" />
+        <property name="IDEA_SANDBOX_HOME_PATH" value="C:\Users\nicity\.IdeaIC12\system\plugins-sandbox" />
       </properties>
       <executeOn event="afterCompilation" target="copy_files" />
     </buildFile>
@@ -48,7 +48,7 @@
     <excludeFromCompile>
       <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/CppParameterInfo.java" />
       <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/makefile/MakefileCompletionData.java" />
-      <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/facade/NikaFacade.java" />
+      <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/facade/CardeaFacade.java" />
     </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />

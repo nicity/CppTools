@@ -16,7 +16,6 @@ import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModuleRootEvent;
 import com.intellij.openapi.roots.ModuleRootListener;
-import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.startup.StartupManager;
 import com.intellij.openapi.util.ModificationTracker;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -52,7 +51,7 @@ public class Communicator implements ProjectComponent {
   private Runnable myIdleListener;
 
   private ModuleRootListener myRootListener;
-  private Object myRootListenerConnectionData;
+  private MessageBusConnection myConnection;
   private long myServerRestartCount;
   private volatile int myServerInternalRestartCount;
 
@@ -242,7 +241,8 @@ public class Communicator implements ProjectComponent {
                 }
               };
 
-              myRootListenerConnectionData = EnvironmentFacade.getInstance().addModuleRootListener(myProject, myRootListener);
+              myConnection = myProject.getMessageBus().connect();
+              myConnection.subscribe(ProjectTopics.PROJECT_ROOTS, myRootListener);
             }
           });
 
@@ -285,9 +285,9 @@ public class Communicator implements ProjectComponent {
   public void projectClosed() {
     if (!myProject.isDefault()) {
       if (myListenerAdded) IdeEventQueue.getInstance().removeIdleListener(myIdleListener);
-      EnvironmentFacade.getInstance().removeModuleRootListener(myRootListenerConnectionData, myRootListener);
+      myConnection.disconnect();
       myRootListener = null;
-      myRootListenerConnectionData = null;
+      myConnection = null;
       sendCommand(new QuitCommand());
 
       SwingUtilities.invokeLater(new Runnable() {

@@ -1,6 +1,6 @@
 package com.advancedtools.cpp.debugger;
 
-import com.advancedtools.cpp.facade.EnvironmentFacade;
+import com.intellij.icons.AllIcons;
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint;
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler;
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties;
@@ -74,8 +74,7 @@ public class CppBreakpointManager {
 
       if (lineBreakpoint != null) {
         if (atPos == index) {
-          Icon verifiedBreakpointIcon = EnvironmentFacade.getInstance().getVerifiedBreakpointIcon();
-          context.getSession().updateBreakpointPresentation(lineBreakpoint, verifiedBreakpointIcon, null);
+          context.getSession().updateBreakpointPresentation(lineBreakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
         } else if (commaPos == index) {
           context.getSession().breakpointReached(
             lineBreakpoint,

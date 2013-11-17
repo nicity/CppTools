@@ -1,10 +1,8 @@
 /* AdvancedTools, 2007, all rights reserved */
 package com.advancedtools.cpp.facade;
 
-import com.advancedtools.cpp.CppSupportLoader;
 import com.advancedtools.cpp.communicator.BuildingCommandHelper;
 import com.advancedtools.cpp.psi.MyLookupItem;
-import com.advancedtools.cpp.sdk.CppSdkType;
 import com.intellij.codeInsight.completion.BasicInsertHandler;
 import com.intellij.codeInsight.completion.CodeCompletionHandlerBase;
 import com.intellij.codeInsight.completion.CompletionType;
@@ -15,23 +13,17 @@ import com.intellij.codeInsight.template.Expression;
 import com.intellij.codeInsight.template.ExpressionContext;
 import com.intellij.codeInsight.template.Result;
 import com.intellij.codeInsight.template.TextResult;
-import com.intellij.lang.Language;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.ModuleRootEvent;
-import com.intellij.openapi.roots.ModuleRootListener;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.BuildNumber;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
-
-import javax.swing.*;
 
 /**
  * @author maxim
@@ -52,11 +44,12 @@ public abstract class EnvironmentFacade {
       javaIde = versionName != null && versionName.indexOf("IDEA") != -1;
 
       int baselineVersion = build.getBaselineVersion();
-      int idea11BaseLineVersionStart = 111;
+      int idea13BaseLineVersionStart = 130;
       int idea12BaseLineVersionStart = 123;
-      final boolean is11 = "11".equals(majorVersion) || baselineVersion >= idea11BaseLineVersionStart;
+
       final boolean is12 = "12".equals(majorVersion) || baselineVersion >= idea12BaseLineVersionStart;
-      String shortClassName = is12 ? "Leda":is11 ? "Nika":null;
+      final boolean is13 = "13".equals(majorVersion) || baselineVersion >= idea13BaseLineVersionStart;
+      String shortClassName = is12 ? "Leda":is13 ? "Cardea":null;
 
       if (shortClassName == null) {
         if (!warnedOnUnsupportedPlatform) {
@@ -106,20 +99,6 @@ public abstract class EnvironmentFacade {
     if (instance == null) getInstance();
     return javaIde;
   }
-
-  public abstract Icon getVerifiedBreakpointIcon();
-
-  public abstract Object addModuleRootListener(Project project, ModuleRootListener moduleRootListener);
-
-  public abstract void removeModuleRootListener(Object rootListenerConnectionData, ModuleRootListener rootListener);
-
-  public abstract Icon getStackFrameIcon();
-
-  public abstract Icon getAntMetaTargetIcon();
-
-  public abstract boolean isSdkOfType(Sdk jdk, SdkType sdkType);
-
-  public abstract Sdk createSdk(String name, SdkType sdkType);
 
   public static class TextExpression extends Expression {
     private final TextResult r;

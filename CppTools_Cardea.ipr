@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
     <buildFile url="file://$PROJECT_DIR$/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
       <customJdkName value="IDEA" />
-      <maximumHeapSize value="128" />
       <maximumStackSize value="32" />
       <properties>
-        <property name="IDEA_SANDBOX_HOME_PATH" value="$SANDBOX_PATH$" />
+        <property name="IDEA_SANDBOX_HOME_PATH" value="C:\Users\nicity\.IdeaIC13\system\plugins-sandbox" />
       </properties>
       <executeOn event="afterCompilation" target="copy_files" />
     </buildFile>
@@ -51,7 +47,6 @@
     <option name="DEFAULT_COMPILER" value="Javac" />
     <excludeFromCompile>
       <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/makefile/MakefileCompletionData.java" />
-      <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/facade/IdeaXFacade.java" />
       <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/facade/LedaFacade.java" />
     </excludeFromCompile>
     <resourceExtensions>
@@ -70,7 +65,11 @@
       <entry name="?*.tld" />
       <entry name="?*.ft" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="">
     <module2copyright />
@@ -297,13 +296,13 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA IU" project-jdk-type="IDEA JDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA" project-jdk-type="IDEA JDK" />
   <component name="ProjectRunConfigurationManager">
     <configuration default="false" name="Idea" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="CppTools" />
       <option name="VM_PARAMETERS" value=" -d32 -Xms128m -Xmx512m -XX:MaxPermSize=250m -ea " />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <log_file path="$SANDBOX_PATH$/system/log/idea.log" checked="false" skipped="true" show_all="false" alias="IDEA LOG" />
+      <log_file path="$USER_HOME$/.IdeaIC13a/system/plugins-sandbox/system/log/idea.log" checked="false" skipped="true" show_all="false" alias="IDEA LOG" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="4667" />
         <option name="TRANSPORT" value="0" />

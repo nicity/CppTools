@@ -2,7 +2,6 @@
 package com.advancedtools.cpp.sdk;
 
 import com.advancedtools.cpp.CppSupportLoader;
-import com.advancedtools.cpp.facade.EnvironmentFacade;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.projectRoots.*;
@@ -77,9 +76,8 @@ public class CppSdkType extends SdkType implements ApplicationComponent {
 
   @NotNull List<Sdk> getCppSdks() {
     List<Sdk> sdks = null;
-    EnvironmentFacade facade = EnvironmentFacade.getInstance();
     for(Sdk jdk:ProjectJdkTable.getInstance().getAllJdks()) {
-      if (facade.isSdkOfType(jdk, this)) {
+      if (jdk.getSdkType() == this) {
         if (sdks == null) sdks = new ArrayList<Sdk>(1);
         sdks.add(jdk);
       }
@@ -93,12 +91,12 @@ public class CppSdkType extends SdkType implements ApplicationComponent {
 
   public Sdk createOrGetSdkByPath(final String s) {
     for(Sdk jdk:getCppSdks()) {
-      if (jdk.getHomePath().equals(s)) return jdk;
+      if (s.equals(jdk.getHomePath())) return jdk;
     }
     return ApplicationManager.getApplication().runWriteAction(new Computable<Sdk>() {
       public Sdk compute() {
         try {
-          Sdk jdk = EnvironmentFacade.getInstance().createSdk("Cpp SDK", getInstance());
+          Sdk jdk = new ProjectJdkImpl("Cpp SDK", getInstance());
           SdkModificator sdkModificator = addSdkVersion(jdk);
           sdkModificator.setHomePath(s);
           sdkModificator.commitChanges();
