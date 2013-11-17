@@ -3,9 +3,7 @@ package com.advancedtools.cpp.commands;
 
 import com.advancedtools.cpp.communicator.BuildingCommandHelper;
 import com.advancedtools.cpp.communicator.CommunicatorCommand;
-import com.advancedtools.cpp.facade.EnvironmentFacade;
-import com.intellij.ide.DataManager;
-import com.intellij.idea.LoggerFactory;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
@@ -64,11 +62,11 @@ public class ShowPreprocessedCommand extends CommunicatorCommand {
 
         FileEditorManager.getInstance(project).openTextEditor(descriptor, true);
       } else {
-        LoggerFactory.getInstance().getLoggerInstance(getClass().getName()).error(
+        Logger.getInstance(getClass().getName()).error(
           "Unexpected problem finding virtual file for "+tempFile.getPath());
       }
     } catch (IOException ex) {
-      LoggerFactory.getInstance().getLoggerInstance(getClass().getName()).error(ex);
+      Logger.getInstance(getClass().getName()).error(ex);
     }
   }
 
