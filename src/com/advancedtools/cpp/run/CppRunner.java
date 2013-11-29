@@ -12,6 +12,7 @@ import com.intellij.execution.ui.RunContentDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author maxim
@@ -19,20 +20,20 @@ import org.jetbrains.annotations.NotNull;
  * Time: 19:35:05
  */
 public class CppRunner extends GenericProgramRunner {
-  protected RunContentDescriptor doExecute(final Project project,
-                                           final Executor executor,
-                                           final RunProfileState state,
-                                           final RunContentDescriptor contentToReuse,
-                                           final ExecutionEnvironment env) throws ExecutionException {
+  @Nullable
+  @Override
+  protected RunContentDescriptor doExecute(Project project, RunProfileState runProfileState, RunContentDescriptor runContentDescriptor, ExecutionEnvironment executionEnvironment) throws ExecutionException {
     FileDocumentManager.getInstance().saveAllDocuments();
-    final RunContentBuilder contentBuilder = new RunContentBuilder(project, this, executor);
-    contentBuilder.setEnvironment(env);
-    ExecutionResult executionResult = state.execute(executor, this);
+    Executor executor = executionEnvironment.getExecutor();
+
+    ExecutionResult executionResult = runProfileState.execute(executor, this);
     if (executionResult == null) return null;
-    onProcessStarted(env.getRunnerSettings(), executionResult);
+    final RunContentBuilder contentBuilder = new RunContentBuilder(this, executionResult, executionEnvironment);
+    contentBuilder.setEnvironment(executionEnvironment);
+    onProcessStarted(executionEnvironment.getRunnerSettings(), executionResult);
     contentBuilder.setExecutionResult(executionResult);
-    RunContentDescriptor contentDescriptor = contentBuilder.showRunContent(contentToReuse);
-    return contentDescriptor;
+
+    return contentBuilder.showRunContent(runContentDescriptor);
   }
 
   public boolean canRun(@NotNull final String executorId, @NotNull final RunProfile profile) {

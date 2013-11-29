@@ -9,8 +9,6 @@ import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.ModuleConfigurationEditorProvider;
 import com.intellij.openapi.roots.ui.configuration.ModuleConfigurationState;
 import com.intellij.openapi.roots.ui.configuration.DefaultModuleConfigurationEditorFactory;
-import com.intellij.peer.PeerFactory;
-import com.advancedtools.cpp.facade.EnvironmentFacade;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,11 +22,10 @@ public class CppModuleConfigurationEditorProvider implements ModuleConfiguration
 
     ModifiableRootModel rootModel = state.getRootModel();
 
+    DefaultModuleConfigurationEditorFactory defaultModuleConfigurationEditorFactory = DefaultModuleConfigurationEditorFactory.getInstance();
     return new ModuleConfigurationEditor[] {
-      PeerFactory.getInstance().createModuleConfigurationEditor(
-        rootModel.getModule().getName(), state
-      ),
-      DefaultModuleConfigurationEditorFactory.getInstance().createClasspathEditor(state),
+      defaultModuleConfigurationEditorFactory.createModuleContentRootsEditor(state),
+      defaultModuleConfigurationEditorFactory.createClasspathEditor(state),
     };
   }
 

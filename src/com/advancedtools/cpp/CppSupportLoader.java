@@ -5,26 +5,19 @@ import com.advancedtools.cpp.build.BaseBuildHandler;
 import com.advancedtools.cpp.build.BuildTarget;
 import com.advancedtools.cpp.commands.ChangedCommand;
 import com.advancedtools.cpp.commands.FindSymbolsCommand;
-import com.advancedtools.cpp.commands.NavigationCommand;
 import com.advancedtools.cpp.commands.StringCommand;
 import com.advancedtools.cpp.communicator.BuildingCommandHelper;
 import com.advancedtools.cpp.communicator.Communicator;
 import com.advancedtools.cpp.facade.EnvironmentFacade;
-//import com.advancedtools.cpp.facade.ExtendedPlatformServices;
 import com.advancedtools.cpp.facade.ExtendedPlatformServices;
-import com.advancedtools.cpp.makefile.MakefileColorsAndFontsPage;
 import com.advancedtools.cpp.makefile.MakefileLanguage;
 import com.advancedtools.cpp.navigation.CppSymbolContributor;
 import com.advancedtools.cpp.settings.*;
-import com.advancedtools.cpp.usages.FileUsage;
 import com.advancedtools.cpp.usages.OurUsage;
 import com.advancedtools.cpp.utils.StringTokenizerIterable;
 import com.intellij.codeInsight.AutoPopupController;
 import com.intellij.codeInsight.CodeInsightSettings;
-import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
-import com.intellij.codeInsight.editorActions.TypedHandler;
 import com.intellij.lang.Language;
-import com.intellij.navigation.ChooseByNameRegistry;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
@@ -46,25 +39,22 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.options.colors.ColorSettingsPages;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleFileIndex;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.*;
 import com.intellij.openapi.vfs.*;
 import com.intellij.openapi.wm.ex.WindowManagerEx;
-import com.intellij.psi.*;
-import com.intellij.psi.search.searches.DefinitionsSearch;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.util.Alarm;
 import com.intellij.util.Processor;
-import com.intellij.util.QueryExecutor;
 import com.intellij.util.text.CharArrayUtil;
 import com.intellij.util.ui.ErrorTreeView;
 import gnu.trove.THashSet;
@@ -1100,9 +1090,9 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
             ((aChar == '>' && previousChar(selectedEditor) == '-') && !".".equals(oldFragment.toString()))
            ) {
             CodeInsightSettings settings = CodeInsightSettings.getInstance();
-            final int lookupDelay = settings.AUTO_POPUP_COMPLETION_LOOKUP ? settings.AUTO_LOOKUP_DELAY : -1;
+            final int lookupDelay = settings.AUTO_POPUP_COMPLETION_LOOKUP ? 0 : -1;
 
-            if (lookupDelay > 0) {
+            if (lookupDelay >= 0) {
               ApplicationManager.getApplication().invokeLater(new Runnable() {
                 public void run() {
                   try {

@@ -41,11 +41,11 @@ public class CppRemoteDebugConfiguration extends BaseCppConfiguration<CppRemoteD
     return new CppRemoteDebugSettingEditor(getProject());
   }
 
-  public JDOMExternalizable createRunnerSettings(ConfigurationInfoProvider configurationInfoProvider) {
+  public com.intellij.execution.configurations.ConfigurationPerRunnerSettings createRunnerSettings(ConfigurationInfoProvider configurationInfoProvider) {
     return null;
   }
 
-  public SettingsEditor<JDOMExternalizable> getRunnerSettingsEditor(ProgramRunner programRunner) {
+  public SettingsEditor<com.intellij.execution.configurations.ConfigurationPerRunnerSettings> getRunnerSettingsEditor(ProgramRunner programRunner) {
     return null;
   }
 

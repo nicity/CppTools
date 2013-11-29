@@ -29,12 +29,14 @@ import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XSourcePosition;
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler;
+import com.intellij.xdebugger.evaluation.EvaluationMode;
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * User: maxim
@@ -45,41 +47,7 @@ public class CppDebugProcess<T extends BaseCppConfiguration> extends XDebugProce
   private final Process process;
   private final Alarm myOutputReadingAlarm;
   private final List<Closeable> myStreamsToClose = new ArrayList<Closeable>();
-  private final LinkedList<DebuggerCommand> commandsToWrite = new LinkedList<DebuggerCommand>() {
-    @Override
-    public synchronized DebuggerCommand removeFirst() {
-      waitForData();
-      return super.removeFirst();
-    }
-
-    @Override
-    public synchronized void addFirst(final DebuggerCommand debuggerCommand) {
-      super.addFirst(debuggerCommand);
-      notifyAll();
-    }
-
-    @Override
-    public synchronized void addLast(final DebuggerCommand debuggerCommand) {
-      super.addLast(debuggerCommand);
-      notifyAll();
-    }
-
-    @Override
-    public boolean add(DebuggerCommand debuggerCommand) {
-      addLast(debuggerCommand);
-      return true;
-    }
-
-    private void waitForData() {
-      try {
-        while (size() == 0) {
-          wait();
-        }
-      } catch (InterruptedException ex) {
-        throw new RuntimeException(ex);
-      }
-    }
-  };
+  private final LinkedBlockingDeque<DebuggerCommand> commandsToWrite = new LinkedBlockingDeque<DebuggerCommand>();
 
   private final CppDebuggerContext context;
   private ConsoleView myConsoleView;
@@ -92,7 +60,10 @@ public class CppDebugProcess<T extends BaseCppConfiguration> extends XDebugProce
     super(session);
 
     BaseCppRunnerParameters cppRunnerParameters = runConfiguration.getRunnerParameters();
+    List<String> commands = new ArrayList<String>();
+    commands.add("--interpreter=mi");
     String toolCommandLine = CompileCppAction.getEscapedPathToFile(cppRunnerParameters.getExecutableName());
+    commands.add(toolCommandLine);
 
     List<String> command = BuildUtils.buildGccToolCall(
       CppSupportSettings.getInstance().getGdbPath(),
@@ -362,7 +333,7 @@ public class CppDebugProcess<T extends BaseCppConfiguration> extends XDebugProce
 
       @NotNull
       @Override
-      public Document createDocument(@NotNull Project project, @NotNull String s, @Nullable XSourcePosition xSourcePosition) {
+      public Document createDocument(@NotNull Project project, @NotNull String s, @Nullable XSourcePosition xSourcePosition, @NotNull EvaluationMode evaluationMode) {
         VirtualFile virtualFile = new LightVirtualFile("dummy.cpp", s);
         ICppCodeFragment file = new CppCodeFragment(new SingleRootFileViewProvider(PsiManager.getInstance(project), virtualFile, true));
         return PsiDocumentManager.getInstance(project).getDocument(file);

@@ -12,8 +12,10 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.*;
-import com.intellij.ui.SimpleColoredComponent;
+import com.intellij.psi.search.FilenameIndex;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.GlobalSearchScopes;
+import com.intellij.ui.ColoredTextContainer;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.util.Icons;
 import com.intellij.util.text.CharArrayUtil;
@@ -22,10 +24,9 @@ import com.intellij.xdebugger.XSourcePosition;
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
 * User: maxim
@@ -52,8 +53,9 @@ public class CppStackFrame extends XStackFrame {
     return sourcePosition;
   }
 
-  @Override
-  public void customizePresentation(SimpleColoredComponent component) {
+    @Override
+    public void customizePresentation(ColoredTextContainer component) {
+
     XSourcePosition position = getSourcePosition();
     component.append(myScope, SimpleTextAttributes.REGULAR_ATTRIBUTES);
     component.append(" in ", SimpleTextAttributes.REGULAR_ATTRIBUTES);
@@ -98,8 +100,9 @@ public class CppStackFrame extends XStackFrame {
       }
 
       @Override
-      public void evaluate(@NotNull final String evaluated, final XEvaluationCallback xEvaluationCallback) {
-        context.sendCommand(new StackFrameBasedDebuggerCommand("print "+evaluated, CppStackFrame.this) {
+      public void evaluate(@NotNull final String evaluated, final @NotNull XEvaluationCallback xEvaluationCallback, @Nullable XSourcePosition xSourcePosition) {
+
+        context.sendCommand(new StackFrameBasedDebuggerCommand("print " + evaluated, CppStackFrame.this) {
           @Override
           protected void processToken(String token, CppDebuggerContext context) {
             final String marker = EQ_MARKER;
@@ -119,8 +122,9 @@ public class CppStackFrame extends XStackFrame {
         });
       }
 
+      @Nullable
       @Override
-      public TextRange getExpressionRangeAtOffset(Project project, Document document, int i) {
+      public TextRange getExpressionRangeAtOffset(Project project, Document document, int offset, boolean sideEffectsAllowed) {
         return null; // TODO:
       }
     };
@@ -192,7 +196,8 @@ public class CppStackFrame extends XStackFrame {
       path = _path;
     }
 
-    public void computePresentation(@NotNull XValueNode node) {
+    @Override
+    public void computePresentation(@NotNull XValueNode node, @NotNull XValuePlace xValuePlace) {
       // (    const ProgressStep &) @0x7f0dd10: {<T> = {<gc> = {<No data fields>}, <No data fields>}, val = 1.11401715e-038}
       int typeStart = value.indexOf('(');
       int typeEnd = typeStart != -1 ? value.indexOf(')', typeStart):-1;
@@ -211,7 +216,7 @@ public class CppStackFrame extends XStackFrame {
       }
       boolean hasChildren = type != null ? type.indexOf('*') != -1 || type.indexOf('&') != -1 || type.indexOf("@0x") != -1: structValue;
 
-      node.setPresentation(name, structValue || "this".equals(name)? Icons.CLASS_ICON:icon, type, value, hasChildren);
+      node.setPresentation(structValue || "this".equals(name)? Icons.CLASS_ICON:icon, type, value, hasChildren);
     }
 
     @Override
@@ -234,7 +239,7 @@ public class CppStackFrame extends XStackFrame {
     @Override
     public void computeChildren(@NotNull XCompositeNode xCompositeNode) {
       if (value.endsWith("}")) {
-        List<XValue> nodes = new ArrayList<XValue>();
+        XValueChildrenList nodes = new XValueChildrenList();
         parse(null, path, value, nodes, frame);
 
         xCompositeNode.addChildren(nodes, true);
@@ -242,14 +247,14 @@ public class CppStackFrame extends XStackFrame {
         final String newPath = "(*"+path+")";
         frame.context.sendCommand(new MyDumpValuesCommand("print "+newPath, frame, xCompositeNode, true, null) {
           @Override
-          protected void addNode(List<XValue> values, String name, String value) {
+          protected void addNode(XValueChildrenList values, String name, String value) {
             parse(null, newPath, value,  values, frame);
           }
         });
       }
     }
 
-    private static void parse(String curName, String path, String curValue, List<XValue> nodes, CppStackFrame frame) {
+    private static void parse(String curName, String path, String curValue, XValueChildrenList nodes, CppStackFrame frame) {
       if (curValue.endsWith("}")) {
         curValue = curValue.substring(curValue.indexOf('{') + 1, curValue.length() - 1);
         int pos = 0;
@@ -271,7 +276,7 @@ public class CppStackFrame extends XStackFrame {
           curPath = path;
           curName = path;
         }
-        nodes.add(new CppValueNode(curName, curPath, curValue, null,frame));
+        nodes.add(curName, new CppValueNode(curName, curPath, curValue, null,frame));
       }
     }
 
@@ -325,7 +330,7 @@ public class CppStackFrame extends XStackFrame {
   }
 
   private static class MyDumpValuesCommand extends StackFrameBasedDebuggerCommand {
-    private final List<XValue> values;
+    private final XValueChildrenList values;
     private final XCompositeNode xCompositeNode;
     private final boolean last;
     private final Icon defaultIcon;
@@ -333,7 +338,7 @@ public class CppStackFrame extends XStackFrame {
     public MyDumpValuesCommand(String val, CppStackFrame frame, XCompositeNode _xCompositeNode, boolean _last, Icon _defaultIcon) {
       super(val, frame);
       xCompositeNode = _xCompositeNode;
-      values = new ArrayList<XValue>();
+      values = new XValueChildrenList();
       last = _last;
       defaultIcon = _defaultIcon;
     }
@@ -349,8 +354,8 @@ public class CppStackFrame extends XStackFrame {
       addNode(values, name, value);
     }
 
-    protected void addNode(List<XValue> values, String name, String value) {
-      values.add(new CppValueNode(name, name, value, defaultIcon, myFrame));
+    protected void addNode(XValueChildrenList values, String name, String value) {
+      values.add(name, new CppValueNode(name, name, value, defaultIcon, myFrame));
     }
 
     @Override
