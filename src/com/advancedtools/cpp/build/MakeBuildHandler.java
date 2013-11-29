@@ -5,7 +5,6 @@ import com.intellij.execution.filters.Filter;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VfsUtil;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.NonNls;
@@ -59,10 +58,6 @@ public class MakeBuildHandler extends BaseBuildHandler {
 
     public static String getMatchingPattern() {
       return "^((?:\\w\\:)?[^\\:]+)(?:\\:([0-9]+)\\:(?:([0-9])+\\:)?)?";
-    }
-
-    protected VirtualFile resolveFilename(String fileName) {
-      return VfsUtil.findRelativeFile(fileName, currentContext);
     }
   }
 

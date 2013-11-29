@@ -70,7 +70,7 @@ public class CompileCppAction extends AnAction {
     abstract String getOutputFileName(VirtualFile file, CompileCppOptions compileOptions);
   }
 
-  static class ClangCompileHandler extends CompileHandler {
+  public static class ClangCompileHandler extends CompileHandler {
     private @NonNls Map<String, String> myItems;
 
     @Nullable List<String> buildCommand(VirtualFile file, CompileCppOptions options) {
@@ -95,9 +95,13 @@ public class CompileCppAction extends AnAction {
       return myItems;
     }
 
+    public static String getMatchingPattern() {
+      return "^((?:\\w\\:)?[^\\:]+)(?:\\:([0-9]+)\\:(?:([0-9])+\\:))";
+    }
+
     @Nullable
     Filter getCompileLogFilter(VirtualFile file, CompileCppOptions options) {
-      return new MakeBuildHandler.MakeFormatFilter(file, options.getProject());
+      return new BasicFormatFilter(file, options.getProject(), getMatchingPattern());
     }
 
     String buildProjectCompileOptions(Project project) {
@@ -325,7 +329,7 @@ public class CompileCppAction extends AnAction {
   static class CompileCppDialog extends DialogWrapper {
     private JPanel myPanel;
     private JTextField compileProperties;
-    private JComboBox compilerSelector;
+    private JComboBox<CppSupportSettings.CompilerSelectOptions> compilerSelector;
     private JCheckBox includeProjectCompileParametersCheckBox;
     private JTextField projectCompileParameters;
     private JCheckBox doRun;
@@ -360,7 +364,7 @@ public class CompileCppAction extends AnAction {
 
       setTitle(CppBundle.message("compile.cpp.file.dialog.title"));
 
-      compilerSelector.setModel(new DefaultComboBoxModel(CppSupportSettings.CompilerSelectOptions.values()));
+      compilerSelector.setModel(new DefaultComboBoxModel<CppSupportSettings.CompilerSelectOptions>(CppSupportSettings.CompilerSelectOptions.values()));
       compilerSelector.setSelectedItem(getCurrentCompilerOption(project));
 
       setSelectedProjectCompile();

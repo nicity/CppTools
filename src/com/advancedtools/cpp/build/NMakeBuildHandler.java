@@ -3,12 +3,10 @@ package com.advancedtools.cpp.build;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.execution.filters.Filter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -53,10 +51,6 @@ public class NMakeBuildHandler extends BaseBuildHandler {
   private static class MakeFormatFilter extends BasicFormatFilter {
     public MakeFormatFilter(VirtualFile file, Project project) {
       super(file, project, "^([^\\(]+)\\(([0-9]+)\\) \\: (?:warning|error|fatal error)");
-    }
-
-    protected VirtualFile resolveFilename(String fileName) {
-      return VfsUtil.findRelativeFile(fileName, currentContext);
     }
   }
 

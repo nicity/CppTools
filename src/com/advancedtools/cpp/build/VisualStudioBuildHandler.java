@@ -5,7 +5,6 @@ import com.advancedtools.cpp.CppSupportSettings;
 import com.advancedtools.cpp.communicator.Communicator;
 import com.intellij.execution.filters.Filter;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
@@ -24,7 +23,7 @@ import java.util.List;
 */
 public class VisualStudioBuildHandler extends BaseBuildHandler {
   private File tempOutFile;
-  private boolean stopReadThread;
+  private volatile boolean stopReadThread;
 
   @NonNls
   private static final String REBUILD_BUILD_ACTION = "Rebuild";
@@ -224,10 +223,6 @@ public class VisualStudioBuildHandler extends BaseBuildHandler {
   public static class VCFormatFilter extends BasicFormatFilter {
     public VCFormatFilter(VirtualFile file, Project project) {
       super(file, project, "^(?:[0-9]>)?([^\\(]+)\\(([0-9]+)\\) \\: (?:warning|error|fatal error)");
-    }
-
-    protected VirtualFile resolveFilename(String fileName) {
-      return VfsUtil.findRelativeFile(fileName, currentContext);
     }
   }
 }

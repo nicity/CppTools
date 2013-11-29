@@ -5,7 +5,6 @@ import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.fileEditor.FileEditor;
@@ -20,7 +19,7 @@ import java.util.regex.Matcher;
  * Date: Mar 23, 2009
  * Time: 10:47:14 PM
  */
-abstract public class BasicFormatFilter implements Filter {
+public class BasicFormatFilter implements Filter {
   private final Pattern fileNameAndSizeExractor;
   protected VirtualFile currentContext;
   protected final Project project;
@@ -81,20 +80,18 @@ abstract public class BasicFormatFilter implements Filter {
           if (lineNumber != 0) {
             final FileEditor[] fileEditors = FileEditorManager.getInstance(project).getEditors(child1);
 
-            if (fileEditors != null) {
-              Editor editor = null;
+            Editor editor = null;
 
-              for(FileEditor fe:fileEditors) {
-                if (fe instanceof TextEditor) {
-                  editor = ((TextEditor)fe).getEditor();
-                  break;
-                }
+            for(FileEditor fe:fileEditors) {
+              if (fe instanceof TextEditor) {
+                editor = ((TextEditor)fe).getEditor();
+                break;
               }
+            }
 
-              if (editor != null) {
-                int offset = editor.getDocument().getLineStartOffset(lineNumber - 1) + (columnNumber != 0?columnNumber - 1:0);
-                new OpenFileDescriptor(project, child1,offset).navigate(true);
-              }
+            if (editor != null) {
+              int offset = editor.getDocument().getLineStartOffset(lineNumber - 1) + (columnNumber != 0?columnNumber - 1:0);
+              new OpenFileDescriptor(project, child1,offset).navigate(true);
             }
           }
         }
@@ -107,5 +104,7 @@ abstract public class BasicFormatFilter implements Filter {
     }
   }
 
-  protected abstract VirtualFile resolveFilename(String fileName);
+  protected VirtualFile resolveFilename(String fileName) {
+    return VfsUtil.findRelativeFile(fileName, currentContext);
+  }
 }
