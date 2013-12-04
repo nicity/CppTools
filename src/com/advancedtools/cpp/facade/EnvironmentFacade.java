@@ -49,7 +49,7 @@ public abstract class EnvironmentFacade {
 
       final boolean is12 = "12".equals(majorVersion) || baselineVersion >= idea12BaseLineVersionStart;
       final boolean is13 = "13".equals(majorVersion) || baselineVersion >= idea13BaseLineVersionStart;
-      String shortClassName = is12 ? "Leda":is13 ? "Cardea":null;
+      String shortClassName = is13 ? "Cardea":is12 ? "Leda":null;
 
       if (shortClassName == null) {
         if (!warnedOnUnsupportedPlatform) {
