@@ -4,8 +4,6 @@ package com.advancedtools.cpp;
 import com.advancedtools.cpp.communicator.BuildingCommandHelper;
 import com.advancedtools.cpp.communicator.Communicator;
 import com.advancedtools.cpp.facade.EnvironmentFacade;
-import com.advancedtools.cpp.navigation.CppFileContributor;
-import com.advancedtools.cpp.utils.TemplateUtils;
 import com.intellij.openapi.actionSystem.DataConstants;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DataProvider;
@@ -83,6 +81,7 @@ public class CppSupportSettings implements ApplicationComponent, JDOMExternaliza
 
           FileChooserDialog fileChooser = FileChooserFactory.getInstance().createFileChooser(
             fileChooserDescriptor,
+            project,
             WindowManagerEx.getInstanceEx().suggestParentWindow(project)
           );
 

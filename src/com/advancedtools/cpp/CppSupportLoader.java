@@ -763,6 +763,7 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
           fileChooserDescriptor.setTitle("Choose File to Remove from Analysis Scope");
           FileChooserDialog fileChooser = FileChooserFactory.getInstance().createFileChooser(
             fileChooserDescriptor,
+            project,
             WindowManagerEx.getInstanceEx().suggestParentWindow(project)
           );
 

@@ -57,6 +57,7 @@ public abstract class AbstractFileListEditor extends StringListEditor {
         fileChooserDescriptor.setTitle(getChooseTitle());
         FileChooserDialog fileChooser = FileChooserFactory.getInstance().createFileChooser(
           fileChooserDescriptor,
+          project,
           WindowManagerEx.getInstanceEx().suggestParentWindow(project)
         );
 
