@@ -329,7 +329,7 @@ public class CompileCppAction extends AnAction {
   static class CompileCppDialog extends DialogWrapper {
     private JPanel myPanel;
     private JTextField compileProperties;
-    private JComboBox<CppSupportSettings.CompilerSelectOptions> compilerSelector;
+    private JComboBox compilerSelector;
     private JCheckBox includeProjectCompileParametersCheckBox;
     private JTextField projectCompileParameters;
     private JCheckBox doRun;
@@ -364,7 +364,7 @@ public class CompileCppAction extends AnAction {
 
       setTitle(CppBundle.message("compile.cpp.file.dialog.title"));
 
-      compilerSelector.setModel(new DefaultComboBoxModel<CppSupportSettings.CompilerSelectOptions>(CppSupportSettings.CompilerSelectOptions.values()));
+      compilerSelector.setModel(new DefaultComboBoxModel(CppSupportSettings.CompilerSelectOptions.values()));
       compilerSelector.setSelectedItem(getCurrentCompilerOption(project));
 
       setSelectedProjectCompile();

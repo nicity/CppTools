@@ -1,7 +1,6 @@
 /* AdvancedTools, 2007, all rights reserved */
 package com.advancedtools.cpp.facade;
 
-import com.advancedtools.cpp.communicator.BuildingCommandHelper;
 import com.advancedtools.cpp.psi.MyLookupItem;
 import com.intellij.codeInsight.completion.BasicInsertHandler;
 import com.intellij.codeInsight.completion.CodeCompletionHandlerBase;
@@ -19,8 +18,6 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModuleRootEvent;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.BuildNumber;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
@@ -28,47 +25,17 @@ import com.intellij.psi.PsiFile;
 /**
  * @author maxim
  */
-public abstract class EnvironmentFacade {
+public class EnvironmentFacade {
   private static EnvironmentFacade instance;
-
-  private static boolean warnedOnUnsupportedPlatform;
   private static boolean javaIde;
 
   public static EnvironmentFacade getInstance() {
     if (instance == null) {
       ApplicationInfo applicationInfo = ApplicationInfo.getInstance();
-      String majorVersion = applicationInfo.getMajorVersion();
-      BuildNumber build = applicationInfo.getBuild();
-
       String versionName = applicationInfo.getVersionName();
       javaIde = versionName != null && versionName.indexOf("IDEA") != -1;
 
-      int baselineVersion = build.getBaselineVersion();
-      int idea13BaseLineVersionStart = 130;
-      int idea12BaseLineVersionStart = 123;
-
-      final boolean is12 = "12".equals(majorVersion) || baselineVersion >= idea12BaseLineVersionStart;
-      final boolean is13 = "13".equals(majorVersion) || baselineVersion >= idea13BaseLineVersionStart;
-      String shortClassName = is13 ? "Cardea":is12 ? "Leda":null;
-
-      if (shortClassName == null) {
-        if (!warnedOnUnsupportedPlatform) {
-          BuildingCommandHelper.executeOnEdt(new Runnable() {
-            public void run() {
-              if (warnedOnUnsupportedPlatform) return;
-              warnedOnUnsupportedPlatform = true;
-              Messages.showErrorDialog("C++ plugin does not support this IDEA version, please uninstall the plugin for stable work", "C++ Plugin Problem");
-            }
-          });
-        }
-      }
-      String className = "com.advancedtools.cpp.facade." + shortClassName + "Facade";
-
-      try {
-        instance = (EnvironmentFacade) Class.forName(className).newInstance();
-      } catch (Throwable e) {
-        e.printStackTrace();
-      }
+      instance = new EnvironmentFacade();
     }
 
     return instance;
