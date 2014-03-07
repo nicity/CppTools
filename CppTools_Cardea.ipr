@@ -5,7 +5,7 @@
       <customJdkName value="IDEA" />
       <maximumStackSize value="32" />
       <properties>
-        <property name="IDEA_SANDBOX_HOME_PATH" value="C:\Users\nicity\.IdeaIC13\system\plugins-sandbox" />
+        <property name="IDEA_SANDBOX_HOME_PATH" value="$SANDBOX_HOME$" />
       </properties>
       <executeOn event="afterCompilation" target="copy_files" />
     </buildFile>
@@ -45,10 +45,6 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
-    <excludeFromCompile>
-      <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/makefile/MakefileCompletionData.java" />
-      <file url="file://$PROJECT_DIR$/src/com/advancedtools/cpp/facade/LedaFacade.java" />
-    </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -300,18 +296,18 @@
   <component name="ProjectRunConfigurationManager">
     <configuration default="false" name="Idea" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="CppTools" />
-      <option name="VM_PARAMETERS" value=" -d32 -Xms128m -Xmx512m -XX:MaxPermSize=250m -ea " />
+      <option name="VM_PARAMETERS" value="-Xms128m -Xmx512m -XX:MaxPermSize=250m -ea " />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <log_file path="$USER_HOME$/.IdeaIC13a/system/plugins-sandbox/system/log/idea.log" checked="false" skipped="true" show_all="false" alias="IDEA LOG" />
+      <log_file path="$SANDBOX_HOME$/system/log/idea.log" checked="false" skipped="true" show_all="false" alias="IDEA LOG" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="4667" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
-      <method>
-        <option name="Make" enabled="false" />
-      </method>
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
     </configuration>
   </component>
   <component name="ResourceManagerContainer">
@@ -326,7 +322,7 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="com.intellij.jsf.UserDefinedFacesConfigs">
