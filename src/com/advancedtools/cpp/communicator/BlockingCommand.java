@@ -123,9 +123,8 @@ public abstract class BlockingCommand extends CommunicatorCommand {
 
   public void await(Project project, PollingConditional conditional) {
     final Communicator communicator = Communicator.getInstance(project);
-    int restartCountWhenInReadAction = communicator.getRestartCountWhenInReadAction();
-    int max = restartCountWhenInReadAction;
     boolean readAccessAllowed = ApplicationManager.getApplication().isReadAccessAllowed();
+    int cycles = 50;
 
     while(true) {
       synchronized(this) {
@@ -141,10 +140,10 @@ public abstract class BlockingCommand extends CommunicatorCommand {
       }
       try {
         ProgressManager.checkCanceled();
-        --max;
-        if (max == 0 && readAccessAllowed) {
-          communicator.decreaseRestartCountWhenInReadAction(restartCountWhenInReadAction);
-          System.out.println("Terminating long command in read action, no answer:" + (restartCountWhenInReadAction* MS_TO_WAIT) + " command:"+ getCommand());
+        --cycles;
+        if (cycles == 0 && readAccessAllowed) {
+          // ProgressManager.checkCanceled() should cancel via beforeWrite callback of ApplicationListener
+          // here we just avoid waiting for the server too much
           throw new ProcessCanceledException();
         }
       } catch(ProcessCanceledException ex) {

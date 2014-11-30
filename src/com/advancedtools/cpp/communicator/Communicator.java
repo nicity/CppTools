@@ -91,26 +91,6 @@ public class Communicator implements ProjectComponent {
   public static final char DELIMITER = '|';
   public static final String DELIMITER_STRING = "|";
   private static final int CAPACITY = 25;
-  private int myRestartCountWhenInReadAction = INITIAL_RESTART_COUNT;
-  static final int INITIAL_RESTART_COUNT = 20;
-  static final int MIN_RESTART_COUNT = 5;
-
-  public int getRestartCountWhenInReadAction() {
-    return myRestartCountWhenInReadAction;
-  }
-
-  public void decreaseRestartCountWhenInReadAction(final int restartCountWhenInReadAction) {
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        if (restartCountWhenInReadAction != myRestartCountWhenInReadAction) return;
-        int newRestartCount = myRestartCountWhenInReadAction - (INITIAL_RESTART_COUNT / 10);
-        if (newRestartCount > MIN_RESTART_COUNT) {
-          myRestartCountWhenInReadAction = newRestartCount;
-          System.out.println("Decreased wait time to "+newRestartCount * BlockingCommand.MS_TO_WAIT);
-        }
-      }
-    });
-  }
 
   static enum ServerState
   {
@@ -317,7 +297,6 @@ public class Communicator implements ProjectComponent {
       public void doExecute() {
         SwingUtilities.invokeLater(new Runnable() {
           public void run() {
-            myRestartCountWhenInReadAction = INITIAL_RESTART_COUNT;
             if (!myProject.isDisposed()) DaemonCodeAnalyzer.getInstance(myProject).restart();
           }
         });
