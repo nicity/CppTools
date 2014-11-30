@@ -55,7 +55,7 @@ public class HighlightUtils {
   private static TextAttributesKey[] ourAttributes = new TextAttributesKey[20];
   @NonNls
   static final String OK_ANALIZE_COMMAND_RESPONSE = "<OK:analyze";
-  public static final TextAttributesKey UNDEFINED_KEY = new TextAttributesKey();
+
   private static Key<HighlightCommand> ourCurrentHighlightingCommandKey = Key.create("last.hilighting.command");
   public static final boolean debug = Communicator.isDebugEnabled;
   static final long start = System.currentTimeMillis();
