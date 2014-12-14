@@ -17,6 +17,8 @@ import com.advancedtools.cpp.usages.OurUsage;
 import com.advancedtools.cpp.utils.StringTokenizerIterable;
 import com.intellij.codeInsight.AutoPopupController;
 import com.intellij.codeInsight.CodeInsightSettings;
+import com.intellij.codeInsight.completion.CodeCompletionHandlerBase;
+import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.lang.Language;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
@@ -39,8 +41,6 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -59,7 +59,6 @@ import com.intellij.util.text.CharArrayUtil;
 import com.intellij.util.ui.ErrorTreeView;
 import gnu.trove.THashSet;
 import org.jdom.Element;
-import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,7 +76,7 @@ import java.util.List;
 /**
  * @author maxim
  */
-public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, Configurable {
+public class CppSupportLoader implements ProjectComponent, JDOMExternalizable {
   public static final @NonNls String HPP_EXTENSION = "hpp";
   public static final @NonNls String HXX_EXTENSION = "hxx";
   public static final @NonNls String TCC_EXTENSION = "tcc";
@@ -659,21 +658,6 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
     instance = loader;
   }
 
-  @Nls
-  public String getDisplayName() {
-    return "C/C++ Project Settings";
-  }
-
-  public Icon getIcon() {
-    return null;
-  }
-
-  @Nullable
-  @NonNls
-  public String getHelpTopic() {
-    return null;
-  }
-
   public Set<VirtualFile> getProjectAndBuildFilesSet() {
     return projectAndBuildFilesSet;
   }
@@ -884,6 +868,10 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
 
       includeJavaIncludeDirs.setSelected(myIncludeJavaIncludes);
     }
+
+    public JPanel getProjectSettingsPanel() {
+      return projectSettingsPanel;
+    }
   }
 
   static void setupEditIncludeDirectories(final String title, final TextFieldWithBrowseButton includeDirectoriesTextField) {
@@ -917,28 +905,6 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
         if (pathesComponent.isOK()) editPredefinesList.setText(pathesComponent.getText());
       }
     });
-  }
-
-  private ProjectSettingsForm form;
-  public JComponent createComponent() {
-    form = new ProjectSettingsForm();
-    return form.projectSettingsPanel;
-  }
-
-  public boolean isModified() {
-    return form.isModified();
-  }
-
-  public void apply() throws ConfigurationException {
-    form.apply();
-  }
-
-  public void reset() {
-    form.init();
-  }
-
-  public void disposeUIResources() {
-    form = null;
   }
 
   public CppHighlightingSettings getHighlightingSettings() {
@@ -1101,7 +1067,7 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable, C
                     new Runnable() {
                         public void run() {
                           PsiDocumentManager.getInstance(project).commitAllDocuments();
-                          EnvironmentFacade.getInstance().invokeCodeCompletionHandler(project, selectedEditor, psiFile);
+                          new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, selectedEditor);
                         }
                       },
                       lookupDelay

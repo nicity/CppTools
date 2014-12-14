@@ -45,10 +45,6 @@ public class EnvironmentFacade {
     return VfsUtil.findRelativeFile(projectJdk.getHomePath(), null); // TODO
   }
 
-  public void invokeCodeCompletionHandler(Project project, Editor selectedEditor, PsiFile psiFile) {
-    new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, selectedEditor);
-  }
-
   public Object createLookupElement(String s) {
     final MyLookupItem item = new MyLookupItem(s);
     LookupItem<MyLookupItem> lookupItem = new LookupItem<MyLookupItem>(item, item.getPresentation());

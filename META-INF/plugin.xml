@@ -111,6 +111,7 @@
     <lang.syntaxHighlighterFactory key="Makefile" implementationClass="com.advancedtools.cpp.facade.LanguageAwareSyntaxHighlighterFactory" />
 
     <colorSettingsPage implementation="com.advancedtools.cpp.makefile.MakefileColorsAndFontsPage"/>
+    <projectStructureConfigurableAdder implementation="com.advancedtools.cpp.CppProjectConfigurableProvider" />
   </extensions>
   <application-components>
     <component>
