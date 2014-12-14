@@ -87,9 +87,10 @@ public class CppSupportLoader implements ProjectComponent, JDOMExternalizable {
   public static final @NonNls String CC_EXTENSION = "cc";
   public static final @NonNls String C_EXTENSION = "c";
   public static final @NonNls String H_EXTENSION = "h";
+  public static final @NonNls String INO_EXTENSION = "ino";
   private static Key<DocumentListener> ourListenerKey = Key.create("cpp.document.listener");
 
-  public static final String[] extensions = new String[]{CPP_EXTENSION, CC_EXTENSION, C_EXTENSION, H_EXTENSION, HPP_EXTENSION, TCC_EXTENSION, INL_EXTENSION, HI_EXTENSION, INC_EXTENSION, HXX_EXTENSION};
+  public static final String[] extensions = new String[]{CPP_EXTENSION, CC_EXTENSION, C_EXTENSION, INO_EXTENSION, H_EXTENSION, HPP_EXTENSION, TCC_EXTENSION, INL_EXTENSION, HI_EXTENSION, INC_EXTENSION, HXX_EXTENSION};
 
   private Project project;
   private DocumentListener myDocumentListener;
