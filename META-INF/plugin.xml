@@ -2,7 +2,7 @@
 <idea-plugin>
   <name>C/C++</name>
   <version>0.8 build 6</version>
-  <idea-version since-build="131.1" until-build="136.0"/>
+  <idea-version since-build="139.1" until-build="140.0"/>
   <depends>com.intellij.modules.lang</depends>
   <depends optional="true" config-file="exended_platform.xml">com.intellij.modules.java</depends>
   <vendor url="http://bugs.cpptools.com" email="support@adv-tools.com">AdvancedTools</vendor>
@@ -15,11 +15,16 @@
     cpp files and build for makefile/dsp/vcproj files and more.&lt;br&gt;
     Debugging support consists of GDB integration exposed as idea debugger interface.&lt;br&gt;
     EAP software, works only for Win32/(MsVc/Gcc + CygWin/MingW), Linux 32bit /Intel/Gcc, MacOSX/Intel/Gcc platforms with
-      IntelliJ Idea 13 / 13.1 Ultimate / Community editions (builds 131.* - 135.*),
+      IntelliJ Idea 14 Ultimate / Community editions (builds 139.*),
       WebStorm.&lt;br&gt;
     &lt;a href="http://www.cpptools.com/IDEA/Readme.html"&gt;Detailed readme&lt;/a&gt; and &lt;a href="http://youradvtools.blogspot.com/"&gt;blog&lt;/a&gt;
   </description>
   <change-notes>
+      &lt;b&gt;In 0.8.7:&lt;/b&gt;
+      &lt;ul&gt;
+      &lt;li&gt; IntelliJ Idea 14 and branch 139 (e.g. WebStorm 9) compatibility fixes.
+      &lt;li&gt; Dropped Idea 13.X support
+      &lt;/ul&gt;
       &lt;b&gt;In 0.8.6:&lt;/b&gt;
       &lt;ul&gt;
       &lt;li&gt; IntelliJ Idea 13 and 13.1 branch fix (e.g. WebStorm 7/8) compatibility fixes.

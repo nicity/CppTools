@@ -28,10 +28,8 @@ public class CppRunner extends GenericProgramRunner {
 
     ExecutionResult executionResult = runProfileState.execute(executor, this);
     if (executionResult == null) return null;
-    final RunContentBuilder contentBuilder = new RunContentBuilder(this, executionResult, executionEnvironment);
-    contentBuilder.setEnvironment(executionEnvironment);
+    final RunContentBuilder contentBuilder = new RunContentBuilder(executionResult, executionEnvironment);
     onProcessStarted(executionEnvironment.getRunnerSettings(), executionResult);
-    contentBuilder.setExecutionResult(executionResult);
 
     return contentBuilder.showRunContent(runContentDescriptor);
   }
