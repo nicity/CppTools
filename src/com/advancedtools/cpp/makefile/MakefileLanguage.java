@@ -10,6 +10,7 @@ import com.intellij.ide.util.treeView.smartTree.Grouper;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -40,6 +41,12 @@ public class MakefileLanguage extends Language implements LanguageFeatureAware {
   @Nullable
   public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
     return new TreeBasedStructureViewBuilder() {
+      @NotNull
+      @Override
+      public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
+        return createStructureViewModel(); // todo, new api Idea 14.1
+      }
+
       @NotNull
       public StructureViewModel createStructureViewModel() {
         return new TextEditorBasedStructureViewModel(psiFile) {

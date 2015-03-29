@@ -10,6 +10,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.lang.surroundWith.SurroundDescriptor;
 import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -33,6 +34,12 @@ public class CppLanguage extends Language implements LanguageFeatureAware {
   @Nullable
   public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
     return new TreeBasedStructureViewBuilder() {
+      @NotNull
+      @Override
+      public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
+        return createStructureViewModel(); // todo, new api Idea 14.1
+      }
+
       public StructureViewModel createStructureViewModel() {
         return new CppStructureViewBuilder(psiFile);
       }
