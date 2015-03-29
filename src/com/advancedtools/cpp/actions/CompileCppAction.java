@@ -33,7 +33,7 @@ public class CompileCppAction extends AnAction {
   private static CppSupportSettings.CompilerSelectOptions lastOptions;
 
   public void actionPerformed(AnActionEvent anActionEvent) {
-    invoke(anActionEvent.getData(DataKeys.PROJECT), anActionEvent.getData(DataKeys.VIRTUAL_FILE), null);
+    invoke(anActionEvent.getData(LangDataKeys.PROJECT), anActionEvent.getData(LangDataKeys.VIRTUAL_FILE), null);
   }
 
   interface CompileCppOptions {
@@ -302,8 +302,8 @@ public class CompileCppAction extends AnAction {
   public void update(AnActionEvent e) {
     super.update(e);
 
-    final Project project = e.getData(DataKeys.PROJECT);
-    final VirtualFile file = e.getData(DataKeys.VIRTUAL_FILE);
+    final Project project = e.getData(LangDataKeys.PROJECT);
+    final VirtualFile file = e.getData(LangDataKeys.VIRTUAL_FILE);
 
     boolean visible = project != null &&
       file != null &&
