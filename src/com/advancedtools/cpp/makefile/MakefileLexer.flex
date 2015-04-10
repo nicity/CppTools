@@ -50,6 +50,7 @@ IDENTIFIER= ([:letter:]|_) ([:letter:]|{DIGIT}|_ )*
 <VAR_REF> {IDENTIFIER} { yybegin(YYINITIAL); return MakefileTokenTypes.VAR_REFERENCE; }
 <VAR_REF> [^] { yybegin(YYINITIAL); return MakefileTokenTypes.BAD_CHARACTER; }
 <YYINITIAL> "ifeq"          {  return MakefileTokenTypes.IFEQ_KEYWORD; }
+<YYINITIAL> "ifneq"          {  return MakefileTokenTypes.IFNEQ_KEYWORD; }
 <YYINITIAL, DEF_VALUE, TARGET_IDENTIFIER_PART, IDENTIFIER_PART> "$(" {  prevState = zzLexicalState; yybegin(VAR_SELECTION); return MakefileTokenTypes.VAR_SELECTION_START; }
 <VAR_SELECTION> {IDENTIFIER} { return MakefileTokenTypes.VAR_REFERENCE; }
 <VAR_SELECTION> ")" { yybegin(prevState); prevState = 0; return MakefileTokenTypes.VAR_REFERENCE_END; }

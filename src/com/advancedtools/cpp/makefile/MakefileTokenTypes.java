@@ -48,6 +48,7 @@ public interface MakefileTokenTypes {
   IElementType IFDEF_KEYWORD = new MakefileElementType("IFDEF_KEYWORD");
   IElementType IFNDEF_KEYWORD = new MakefileElementType("IFNDEF_KEYWORD");
   IElementType IFEQ_KEYWORD = new MakefileElementType("IFEQ_KEYWORD");
+  IElementType IFNEQ_KEYWORD = new MakefileElementType("IFNEQ_KEYWORD");
   IElementType ENDIF_KEYWORD = new MakefileElementType("ENDIF_KEYWORD");
 
   IFileElementType MAKE_FILE = new IFileElementType(CppSupportLoader.MAKEFILE_LANGUAGE);
@@ -55,5 +56,5 @@ public interface MakefileTokenTypes {
   TokenSet WHITE_SPACES = TokenSet.create(WHITE_SPACE);
   TokenSet COMMENTS = TokenSet.create(END_OF_LINE_COMMENT);
   TokenSet LITERALS = TokenSet.create();
-  TokenSet KEYWORDS = TokenSet.create(INCLUDE_KEYWORD, ELSE_KEYWORD, IFDEF_KEYWORD, IFNDEF_KEYWORD, ENDIF_KEYWORD, ERROR_KEYWORD, IFEQ_KEYWORD);
+  TokenSet KEYWORDS = TokenSet.create(INCLUDE_KEYWORD, ELSE_KEYWORD, IFDEF_KEYWORD, IFNDEF_KEYWORD, ENDIF_KEYWORD, ERROR_KEYWORD, IFEQ_KEYWORD, IFNEQ_KEYWORD);
 }

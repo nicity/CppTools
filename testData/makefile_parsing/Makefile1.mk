@@ -37,6 +37,10 @@ ifdef NOGC
 GENOPT =-D__NOGC__
 endif
 
+ifneq ($(OS),Windows_NT)
+  IFNEQ_TEST = 0
+endif
+
 TESTS = tests/tests-bundle
 
 P = cfserver
