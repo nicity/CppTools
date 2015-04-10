@@ -23,6 +23,7 @@
       &lt;b&gt;In 0.8.8:&lt;/b&gt;
       &lt;ul&gt;
       &lt;li&gt; IntelliJ Idea 14.1 and branch 141 (e.g. WebStorm 10) compatibility fixes.
+      &lt;li&gt; Added missing support for 'ifneq' keyword in Makefiles.
       &lt;/ul&gt;
       &lt;b&gt;In 0.8.7:&lt;/b&gt;
       &lt;ul&gt;
