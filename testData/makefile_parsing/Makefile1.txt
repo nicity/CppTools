@@ -116,6 +116,20 @@ MakeFile:Makefile1.mk
     PsiElement(TEMPLATE_DATA)('-D__NOGC__')
   Composite:STATEMENT
     PsiElement(ENDIF_KEYWORD)('endif')
+  Composite:STATEMENT
+    PsiElement(IFNEQ_KEYWORD)('ifneq')
+    PsiElement(TEMPLATE_DATA)('(')
+    PsiElement(VAR_SELECTION_START)('$(')
+    Composite:VAR_REFERENCE
+      PsiElement(VAR_REFERENCE)('OS')
+    PsiElement(VAR_SELECTION_END)(')')
+    PsiElement(TEMPLATE_DATA)(',Windows_NT)')
+  Composite:VAR_DEFINITION
+    PsiElement(VAR_DEFINITION)('IFNEQ_TEST')
+    PsiElement(EQ)('=')
+    PsiElement(TEMPLATE_DATA)(' 0')
+  Composite:STATEMENT
+    PsiElement(ENDIF_KEYWORD)('endif')
   Composite:VAR_DEFINITION
     PsiElement(VAR_DEFINITION)('TESTS')
     PsiElement(EQ)('=')
