@@ -1,4 +1,4 @@
-<!-- AdvancedTools, 2007, all rights reserved -->
+<!-- Copyright 2006-2012 AdvancedTools. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file. -->
 <project name="CppTools plugin deploy" default="copy_files">
   <property name="idea.sandbox.home.path" value="${IDEA_SANDBOX_HOME_PATH}"/>
   <property name="project.path" value="${basedir}" />
